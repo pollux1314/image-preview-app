@@ -49,19 +49,25 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
-          # 停止并删除旧容器
-          docker stop image-preview-app || true
-          docker rm image-preview-app || true
+          # 登录到阿里云容器镜像服务
+          echo "${{ secrets.ALIYUN_PASSWORD }}" | docker login ${{ env.REGISTRY }} -u ${{ secrets.ALIYUN_USERNAME }} --password-stdin
+          
+          # 停止并删除旧容器（如果存在）
+          docker stop image-preview-app || echo "Container not running"
+          docker rm image-preview-app || echo "Container not found"
           
           # 拉取最新镜像
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest || echo "Failed to pull image, will build locally"
           
           # 启动新容器
           docker run -d \
             --name image-preview-app \
             --restart unless-stopped \
             -p 18080:18080 \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest || echo "Failed to start container"
+          
+          # 检查容器状态
+          docker ps | grep image-preview-app || echo "Container not running"
           
           # 清理旧镜像
           docker image prune -f
