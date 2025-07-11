@@ -8,11 +8,12 @@ on:
 
 env:
   REGISTRY: registry.cn-hangzhou.aliyuncs.com
-  IMAGE_NAME: your-namespace/image-preview-app
+  IMAGE_NAME: pollux1314/image-preview-app
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: production
     
     steps:
     - name: Checkout code
