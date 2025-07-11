@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  image-preview-app:
+    image: registry.cn-hangzhou.aliyuncs.com/your-namespace/image-preview-app:latest
+    container_name: image-preview-app
+    restart: unless-stopped
+    ports:
+      - "18080:18080"
+      - "443:443"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./logs:/var/log/nginx
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge 
