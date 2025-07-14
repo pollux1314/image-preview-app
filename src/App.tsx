@@ -84,7 +84,6 @@ function App() {
       setTimeout(() => setDownloadStatus(''), 3000)
       
     } catch (fetchError) {
-      debugger
       console.log('CORS fetch failed, trying Canvas method:', fetchError)
       
       try {
