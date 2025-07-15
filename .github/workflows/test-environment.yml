@@ -1,0 +1,16 @@
+name: Test Environment Protection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Test deployment
+      run: |
+        echo "This is a test deployment to production environment"
+        echo "If you see this, the environment protection is working correctly"
+        echo "Current time: $(date)" 
