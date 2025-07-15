@@ -1,13 +1,4 @@
 name: production
-on:
-  workflow_run:
-    workflows: ["Deploy to Production"]
-    types:
-      - completed
-    branches:
-      - main
-      - master
-
 protection_rules:
   required_reviewers:
     - bert
