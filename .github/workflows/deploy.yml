@@ -68,14 +68,14 @@ jobs:
         port: ${{ secrets.SERVER_PORT }}
         script: |
           # 登录到阿里云容器镜像服务
-          echo "${{ secrets.ALIYUN_PASSWORD }}" | docker login ${{ env.REGISTRY }} -u ${{ secrets.ALIYUN_USERNAME }} --password-stdin
+          echo "${{ secrets.ALIYUN_PASSWORD }}" | docker login ${{ env.REGISTRY }} -u ${{ secrets.ALIYUN_USERNAME }} --password-stdin || echo "Failed to login to Aliyun"
           
           # 停止并删除旧容器（如果存在）
           docker stop image-preview-app || echo "Container not running"
           docker rm image-preview-app || echo "Container not found"
           
           # 拉取最新镜像
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest || echo "Failed to pull image, will build locally"
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest || echo "Failed to pull image"
           
           # 启动新容器
           docker run -d \
