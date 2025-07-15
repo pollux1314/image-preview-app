@@ -55,7 +55,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment: production
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
     
     steps:
     - name: Deploy to server
