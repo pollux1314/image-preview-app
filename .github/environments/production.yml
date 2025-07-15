@@ -1,7 +1,7 @@
 name: production
 protection_rules:
   required_reviewers:
-    - bert
+    - pollux1314
   wait_timer:
     minutes: 0
   deployment_branches:
