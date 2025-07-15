@@ -54,7 +54,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: production
+    environment: 
+      name: production
+      url: http://${{ secrets.SERVER_HOST }}:18080
     
     steps:
     - name: Deploy to server
