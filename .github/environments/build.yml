@@ -1,7 +1,5 @@
-name: production
+name: build
 protection_rules:
-  required_reviewers:
-    - pollux1314
   wait_timer:
     minutes: 0
   deployment_branches:
