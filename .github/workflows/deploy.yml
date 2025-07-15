@@ -18,7 +18,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: production
     outputs:
       image-tag: ${{ steps.build.outputs.image-tag }}
     
